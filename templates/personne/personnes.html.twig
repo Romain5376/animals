@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnes{% endblock %}
+{% block monTitre %}Voici la liste des personnes{% endblock %}
+{% block body %}
+<div class="row d-flex justify-content-center mt-5">
+    <div class="col-lg-6 col-md-10 col-sm-12">
+        <table class="table table-hover text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Prénom de la personne</th>
+                    <th scope="col">Animal possèdé</th>
+                    <th scope="col">Nombre d'animaux possèdé</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for personne in personnes %}
+                <tr>
+                    <td>
+                        <button class="btn btn-danger">
+                            <a class="text-white" href="{{ path('afficherPersonne',{'id' : personne.id}) }}">{{ personne.nom }}</a>
+                        </button>
+                    </td>
+                    {% for dispose in personne.disposes %}
+                    <td>
+                        <div>
+                            <a href="{{ path('afficherAnimal', {'id' : dispose.animal.id}) }}">
+                                <img src="{{asset('images/' ~  dispose.animal.image)}}" class="mb-2 mr-2 animalsImg" />
+                            </a>
+                        </div>
+                        <div class="mb-4">
+                            <a href="{{ path('afficherFamille', {'id' : dispose.animal.famille.id}) }}">
+                                <div class="badge badge-primary">{{ dispose.animal.famille.libelle }}</div>
+                            </a>
+                        </div>
+                    </td>
+                    <td>{{ dispose.nb }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

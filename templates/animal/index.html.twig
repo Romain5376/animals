@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil{% endblock %}
+
+{% block monTitre %}Voici la liste des animaux{% endblock %}
+{% block body %}
+<div class="row mt-5">
+    {% for animal in animaux %}
+    <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center mb-5">
+        <div class="card" style="width: 20rem;">
+            <img src="{{asset('images/' ~  animal.image)}}" class="card-img-top mr-auto ml-auto"
+                alt="{{ animal.nom }}" />
+            <div class="card-body">
+                <h3 class="card-title text-center"><a href="{{ path('afficherAnimal', {'id' : animal.id}) }}">Le
+                        {{ animal.nom }}</a></h3>
+                <ul>
+                    <li><b>Description:</b> {{ animal.description }}.</li>
+                </ul>
+                <div class="text-center">
+                    <button class="btn btn-primary">
+                        <a class="text-white"
+                            href="{{ path('afficherFamille', {'id' : animal.famille.id }) }}">{{ animal.famille.libelle }}</a>
+                    </button>
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    <h6 class="mb-2">Les continents où l'animal est présent:</h6>
+                    {% for continent in animal.continents %}
+                    <div class="col-4 justify-content-center">
+                        <a class="badge badge-info text-white"
+                            href="{{ path('afficherContinent',{'id' : continent.id}) }}"
+                            {{ continent.libelle }}>{{ continent.libelle }}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="row mt-3 justify-content-center">
+                    {% for dispose in animal.disposes %}
+                    <h6 class="text-center"><a class="text-danger" href="{{ path('afficherPersonne',{'id' : dispose.personne.id}) }}">{{ dispose.personne.nom }}</a> possède cet animal.</h6>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

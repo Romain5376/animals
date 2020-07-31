@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Continents{% endblock %}
+{% block monTitre %}Voici la liste des continents{% endblock %}
+{% block body %}
+<div class="row d-flex justify-content-center mt-5">
+    <div class="col-lg-6 col-md-10 col-sm-12">
+        <table class="table table-hover text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nom du continent</th>
+                    <th scope="col">Animaux présent sur le continent</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for continent in continents %}
+                <tr>
+                    <td>
+                        <h3>
+                            <button class="btn btn-success">
+                                <a class="text-white" href="{{ path('afficherContinent',{'id' : continent.id}) }}" {{ continent.libelle }}>{{ continent.libelle }}</a>
+                            </button>
+                        </h3>
+                    </td>
+                    <td colspan="2">
+                        {% for animal in continent.animaux %}
+                        <div>
+                            <a href="{{ path('afficherAnimal', {'id' : animal.id}) }}">
+                                <img src="{{asset('images/' ~  animal.image)}}" class="mb-2 mr-2 animalsImg" />
+                            </a>
+                        </div>
+                        <div class="mb-4">
+                            <a href="{{ path('afficherFamille', {'id' : animal.famille.id}) }}">
+                                <div class="badge badge-primary">{{ animal.famille.libelle }}</div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

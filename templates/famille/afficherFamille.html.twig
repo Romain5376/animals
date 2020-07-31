@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affichage de la famille{% endblock %}
+
+{% block monTitre %}Affichage des {{ famille.libelle }}{% endblock %}
+{% block body %}
+<div class="row mt-5 justify-content-center">
+    {% for animal in famille.animaux %}
+    <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center">
+        <div class="card" style="width: 25rem;">
+            <img src="{{asset('images/' ~  animal.image)}}" class="card-img-top mr-auto ml-auto" alt="{{ animal.nom }}" />
+            <div class="card-body text-center">
+                <h3 class="card-title"><a href="{{ path('afficherAnimal',{'id' : animal.id}) }}">Le {{ animal.nom }}</a></h5>
+                    <ul>
+                        <li><b>Description:</b> {{ animal.description }}.</li>
+                        <li><b>Poids:</b> {{ animal.poids }}kg</li>
+                        <li>
+                            <b>Dangereux:</b>
+                            {% if animal.dangereux %}
+                            <span id="yes" class="badge badge-danger">OUI</span>
+                            {% else %}
+                            <span id="no" class="badge badge-success">NON</span>
+                            {% endif %}
+                        </li>
+                    </ul>
+                    <div class="row mt-3 justify-content-center">
+                        <h6 class="mb-2">Les continents où l'animal est présent:</h6>
+                        {% for continent in animal.continents %}
+                        <div class="col-4 justify-content-center">
+                            <a class="badge badge-info text-white" href="{{ path('afficherContinent',{'id' : continent.id}) }}" {{ continent.libelle }}>{{ continent.libelle }}</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="row mt-3 justify-content-center">
+                        {% for dispose in animal.disposes %}
+                        <h6 class="text-center"><a class="text-danger" href="{{ path('afficherPersonne',{'id' : dispose.personne.id}) }}">{{ dispose.personne.nom }}</a> possède cet animal.</h6>
+                        {% endfor %}
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-4 mb-3 text-center">
+                            <a href="/" class="btn btn-primary">Animaux</a>
+                        </div>
+                        <div class="col-4 mb-3 text-center">
+                            <a href="{{ path('familles') }}" class="btn btn-warning">Familles</a>
+                        </div>
+                        <div class="col-4 text-center">
+                            <a href="{{ path('continents') }}" class="btn btn-success">Continents</a>
+                        </div>
+                        <div class="col-12 text-center">
+                            <a href="{{ path('personnes') }}" class="btn btn-danger">Personnes</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

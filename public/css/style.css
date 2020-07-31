@@ -1,0 +1,37 @@
+.row {
+    margin-left:0;
+    margin-right:0;
+}
+
+.col-12 {
+    padding-left:0 !important;
+    padding-right:0 !important;
+}
+
+.navbar {
+    border-radius:0;
+}
+
+a {
+    text-decoration:none !important;
+}
+
+.card img {
+    width:50%;
+}
+
+.card .card-body ul {
+    list-style:none;
+}
+
+.table th, .table td {
+    vertical-align: middle !important;
+}
+
+.animalsImg {
+    width:15%;
+}
+
+.animalsImg:hover {
+    width:16%;
+}
